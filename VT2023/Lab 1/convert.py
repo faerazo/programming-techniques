@@ -135,7 +135,7 @@ def temp_converter():
 
 while True:
     temp_converter()  # call the function to ask the user to select a temperature scale and desired conversion
-    quit_answer = input("To quit the program, press 'q'. To run again press enter:")
+    quit_answer = input("To quit the program, press 'q'. To run it again, press enter:")
     quit_answer = quit_answer.upper()  # convert to upper case to avoid case sensitivity
     if quit_answer == "Q":
         print("Goodbye!")
