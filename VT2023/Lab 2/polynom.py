@@ -1,7 +1,7 @@
 def poly_to_string(p_list):
-    '''
+    """
     Return a string with a nice readable version of the polynomial given in p_list.
-    '''
+    """
     terms = []
     degree = 0
 
@@ -16,5 +16,5 @@ def poly_to_string(p_list):
             terms.append(term)
         degree += 1
 
-    final_string = ' + '.join(terms) # The string ' + ' is used as "glue" between the elements in the string
+    final_string = ' + '.join(terms)  # The string ' + ' is used as "glue" between the elements in the string
     return final_string
