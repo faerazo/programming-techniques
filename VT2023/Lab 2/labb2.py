@@ -117,3 +117,25 @@ def eq_poly(p1, p2):
 print(eq_poly(p, p0))
 print(eq_poly(q, q0))
 print(eq_poly(q0, []))
+
+
+def eval_poly(p_list, x):
+    """
+    Evaluate the polynomial given in p_list at the point x.
+    """
+    result = 0
+    for i in range(len(p_list)):
+        result += p_list[i] * x ** i
+    return result
+
+print(eval_poly(q, -2))
+print(poly_to_string_improved(q))
+
+
+def negate_poly(p_list):
+    """
+    Negate the polynomial given in p_list.
+    """
+    return [-coeff for coeff in p_list]
+
+print(poly_to_string_improved(negate_poly(q)))
