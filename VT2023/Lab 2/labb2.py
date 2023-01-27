@@ -124,20 +124,14 @@ def add_poly(p_list, q_list):
     """
     result = []
     for i in range(max(len(p_list), len(q_list))):  # Loop through the list with the highest length
-        if i < len(p_list) and i < len(q_list):
-            result.append(p_list[i] + q_list[i])
-        elif i < len(p_list):
+        if i < len(p_list) and i < len(q_list):  # If i is less than the length of p_list and q_list, add the elements
+            result.append(p_list[i] + q_list[i])  # Add the elements of p_list and q_list and append to result list
+        elif i < len(p_list):  # If i is less than the length of p_list, append the element of p_list
             result.append(p_list[i])
-        else:
+        else:  # If i is less than the length of q_list, append the element of q_list
             result.append(q_list[i])
-    return drop_zeros(result)
+    return drop_zeros(result) # Return the result list without zeros at the end
 
-
-print(p)
-print(q)
-print(poly_to_string_improved(add_poly(p, q)))
-
-print(eq_poly(add_poly(p, q), add_poly(q, p)))
 
 
 def sub_poly(p1, p2):
