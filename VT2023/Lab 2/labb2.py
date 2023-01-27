@@ -73,76 +73,63 @@ def poly_to_string_improved(p_list):
     return final_string
 
 
-# Part 4: Create a function that drop zeros
+# Task 3a: Create a function that drop zeros
 def drop_zeros(p_list):
     """
-    Remove all trailing zeros from the list p_list.
+    Remove all zeros at the end the list p_list and return the result.
     """
-    while p_list and p_list[-1] == 0:
-        p_list.pop()
+    while p_list and p_list[-1] == 0:  # While p_list is not empty and the last element is 0, remove the last element
+        p_list.pop()  # Remove the last element
     return p_list
 
-p0 = [2,0,1,0]
 
-print(drop_zeros(p0))
-
-q0 = [0,0,0]
-print(drop_zeros(q0))
-
-print(drop_zeros([]))
-
-
-def eq_poly(p1, p2):
+# Task 3b: Create a function that checks if two polynomials are equal by ignoring zeros at the end of the list
+def eq_poly(p_list, q_list):
     """
     Return True if the polynomials p1 and p2 are equal, otherwise return False.
     """
-    p1 = drop_zeros(p1)
-    p2 = drop_zeros(p2)
-    if len(p1) != len(p2):
+    p_list = drop_zeros(p_list)  # Remove zeros at the end of p_list
+    q_list = drop_zeros(q_list)  # Remove zeros at the end of q_list
+    if len(p_list) != len(q_list):  # If the length of p_list and q_list are not equal, they are not equal (False)
         return False
-    for i in range(len(p1)):
-        if p1[i] != p2[i]:
+    for i in range(len(p_list)):  # Loop through the list
+        if p_list[i] != q_list[i]:  # If the i elements of p_list and q_list are not equal, they are not equal (False)
             return False
-    return True
-
-print(eq_poly(p, p0))
-print(eq_poly(q, q0))
-print(eq_poly(q0, []))
+    return True  # If the length of p_list and q_list are equal and the elements are equal, it is True
 
 
+# Task 4: Create a function that evaluates a polynomial at a given point
 def eval_poly(p_list, x):
     """
-    Evaluate the polynomial given in p_list at the point x.
+    Evaluate the polynomial given in p_list at the point x and return the result.
     """
     result = 0
-    for i in range(len(p_list)):
-        result += p_list[i] * x ** i
-    return result
-
-print(eval_poly(q, -2))
-print(poly_to_string_improved(q))
+    for i in range(len(p_list)):  # Loop through the list
+        result += p_list[i] * x ** i  # Add the result of the polynomial at the point x to the result
+    return result # Return the result
 
 
+# Task 5a: Create a function that convert a polynomial to its negative form
 def negate_poly(p_list):
     """
     Negate the polynomial given in p_list.
     """
-    return [-coeff for coeff in p_list]
+    return [-coeff for coeff in p_list]  # Return the list with all elements multiplied by -1
 
-print(poly_to_string_improved(negate_poly(q)))
 
-def add_poly(p1, p2):
+# Task 5b: Create a function that add two polynomials
+def add_poly(p_list, q_list):
     """
     Add the polynomials p1 and p2.
     """
     result = []
-    for i in range(max(len(p1), len(p2))):
-        if i < len(p1) and i < len(p2):
-            result.append(p1[i] + p2[i])
-        elif i < len(p1):
-            result.append(p1[i])
+    for i in range(max(len(p_list), len(q_list))):  # Loop through the list with the highest length
+        if i < len(p_list) and i < len(q_list):
+            result.append(p_list[i] + q_list[i])
+        elif i < len(p_list):
+            result.append(p_list[i])
         else:
-            result.append(p2[i])
+            result.append(q_list[i])
     return drop_zeros(result)
 
 
