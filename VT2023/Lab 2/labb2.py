@@ -86,7 +86,7 @@ def drop_zeros(p_list):
 # Task 3b: Create a function that checks if two polynomials are equal by ignoring zeros at the end of the list
 def eq_poly(p_list, q_list):
     """
-    Return True if the polynomials p1 and p2 are equal, otherwise return False.
+    Return True if the polynomials p_list and q_list are equal, otherwise return False.
     """
     p_list = drop_zeros(p_list)  # Remove zeros at the end of p_list
     q_list = drop_zeros(q_list)  # Remove zeros at the end of q_list
@@ -106,7 +106,7 @@ def eval_poly(p_list, x):
     result = 0
     for i in range(len(p_list)):  # Loop through the list
         result += p_list[i] * x ** i  # Add the result of the polynomial at the point x to the result
-    return result # Return the result
+    return result  # Return the result
 
 
 # Task 5a: Create a function that convert a polynomial to its negative form
@@ -120,27 +120,26 @@ def negate_poly(p_list):
 # Task 5b: Create a function that add two polynomials
 def add_poly(p_list, q_list):
     """
-    Add the polynomials p1 and p2.
+    Add the polynomials p_list and q_list.
     """
     result = []
     for i in range(max(len(p_list), len(q_list))):  # Loop through the list with the highest length
-        if i < len(p_list) and i < len(q_list):  # If i is less than the length of p_list and q_list, add the elements
+        if i < len(p_list) and i < len(q_list):  # If i is less than the length of p_list and q_list (inside the range)
             result.append(p_list[i] + q_list[i])  # Add the elements of p_list and q_list and append to result list
         elif i < len(p_list):  # If i is less than the length of p_list, append the element of p_list
             result.append(p_list[i])
         else:  # If i is less than the length of q_list, append the element of q_list
             result.append(q_list[i])
-    return drop_zeros(result) # Return the result list without zeros at the end
+    return drop_zeros(result)  # Return the result list without zeros at the end
 
 
-
-def sub_poly(p1, p2):
+# Task 5c: Create a function that subtract two polynomials
+def sub_poly(p_list, q_list):
     """
-    Subtract the polynomial p2 from the polynomial p1.
+    Subtract the polynomial p_list from the polynomial q_list.
     """
-    return add_poly(p1, negate_poly(p2))
+    return add_poly(p_list, negate_poly(q_list))  # Return the result of adding p_list and the negative of q_list
 
-print(poly_to_string_improved(sub_poly(p, q)))
 
 
 
