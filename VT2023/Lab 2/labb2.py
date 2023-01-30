@@ -140,6 +140,3 @@ def sub_poly(p_list, q_list):
     """
     return add_poly(p_list, negate_poly(q_list))  # Return the result of adding p_list and the negative of q_list
 
-
-
-
