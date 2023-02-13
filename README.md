@@ -1,5 +1,5 @@
 <p align="center">
-  <img https://www.su.se/webb2021/img/su_logo_horizontal_english.svg"/>
+  <img https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Stockholms_Universitet_logo.svg/1200px-Stockholms_Universitet_logo.svg.png"/>
 </p>
 
 
