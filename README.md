@@ -3,7 +3,7 @@
 </p>
 
 
-# Programming Techniques# 💻
+# Programming Techniques 💻
 
 ## Introduction
 This repository contains the assignments and material for the course "Programming Techniques" from Stockholm University.
