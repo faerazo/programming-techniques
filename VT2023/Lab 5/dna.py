@@ -41,8 +41,20 @@ def read_dna(filename):
     return dna_seqs
 
 
-def check_exact_overlap(  ):
-    pass
+def check_exact_overlap(seq_a, seq_b, min_length=10):
+    """
+    Find the longest overlap between seq_a and seq_b with a minimum overlap length of 10.
+    :param seq_a: The first sequence
+    :param seq_b: The second sequence
+    :param min_length: The minimum overlap
+    :return: The length of the overlap, or 0 if no overlap
+    """
+    max_overlap = 0
+    for i in range(min_length, min(len(seq_a.seq), len(seq_b.seq))):
+        if seq_a[-i:] == seq_b[:i]:
+            max_overlap = i
+    return max_overlap
+
 
 
 def overlaps(  ):
@@ -141,4 +153,7 @@ def test_all():
 # Uncomment this to test everything:
 # test_all()
 
-test_reading()
+
+s0 = DnaSeq('s0', 'AAACCC')
+s1 = DnaSeq('s1', 'CCCGGG')
+print(check_exact_overlap(s0.seq, s1.seq, 3))
