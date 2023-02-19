@@ -1,16 +1,44 @@
 class DnaSeq:
     def __init__(self, accession, seq):
-        pass
+        if accession == '' or seq == '' or accession is None or seq is None:
+            raise ValueError('Accession and sequence cannot be empty.')
+        self.accession = accession
+        self.seq = seq
 
     def __len__(self):
-        pass
+        return len(self.seq)
 
     def __str__(self):
-        pass
+        return f"<DnaSeq accession='{self.accession}'>"
 
 
-def read_dna(  ):
-    pass
+def read_dna(filename):
+    """
+    Read DNA sequences from a file and return a list of DnaSeq objects.
+    :param filename: The name of the file to read
+    :return: A list of DnaSeq objects representing the sequences in the file
+    """
+    dna_seqs = []
+    with open(filename, 'r') as file:
+        # variables are initialized to None to handle when the first line is a sequence line (i.e. no accession)
+        # or the file is empty (i.e. no lines)
+        accession = None
+        sequence = None
+        for line in file:
+            line = line.strip()
+            if line.startswith('>'):
+                if sequence is not None:
+                    dna_seqs.append(DnaSeq(accession, sequence))
+                    sequence = None  # reset sequence to None to handle when the next line is a sequence line
+                accession = line[1:]
+            elif line:  # ignore empty lines
+                if sequence is None:
+                    sequence = line
+                else:
+                    sequence += line
+        if accession is not None and sequence is not None:
+            dna_seqs.append(DnaSeq(accession, sequence))
+    return dna_seqs
 
 
 def check_exact_overlap(  ):
@@ -112,3 +140,5 @@ def test_all():
 
 # Uncomment this to test everything:
 # test_all()
+
+test_reading()
