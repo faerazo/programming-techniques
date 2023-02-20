@@ -56,7 +56,6 @@ def check_exact_overlap(seq_a, seq_b, min_length=10):
     return max_overlap
 
 
-
 def overlaps(  ):
     pass
 
@@ -156,4 +155,4 @@ def test_all():
 
 s0 = DnaSeq('s0', 'AAACCC')
 s1 = DnaSeq('s1', 'CCCGGG')
-print(check_exact_overlap(s0.seq, s1.seq, 3))
+print(check_exact_overlap(s0, s1, 2))
