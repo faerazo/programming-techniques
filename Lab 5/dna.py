@@ -20,44 +20,61 @@ def read_dna(filename):
     """
     dna_seqs = []
     with open(filename, 'r') as file:
-        # variables are initialized to None to handle when the first line is a sequence line (i.e. no accession)
-        # or the file is empty (i.e. no lines)
+        # variables are initialized to None to handle when the first line is a sequence line (no accession)
+        # or the file is empty (no lines)
         accession = None
         sequence = None
         for line in file:
             line = line.strip()
-            if line.startswith('>'):
+            if line.startswith('>'):  # accession line
                 if sequence is not None:
                     dna_seqs.append(DnaSeq(accession, sequence))
-                    sequence = None  # reset sequence to None to handle when the next line is a sequence line
+                    sequence = None  # reset sequence variable to None to handle when the next line is an accession line
                 accession = line[1:]
             elif line:  # ignore empty lines
                 if sequence is None:
                     sequence = line
                 else:
                     sequence += line
-        if accession is not None and sequence is not None:
+        if accession is not None and sequence is not None:  # handle the last sequence in the file
             dna_seqs.append(DnaSeq(accession, sequence))
     return dna_seqs
 
 
-def check_exact_overlap(seq_a, seq_b, min_length=10):
+def check_exact_overlap(dnaseq_a, dnaseq_b, min_length=10):
     """
-    Find the longest overlap between seq_a and seq_b with a minimum overlap length of 10.
-    :param seq_a: The first sequence
-    :param seq_b: The second sequence
+    Find the maximum overlap between seq_a and seq_b with a minimum overlap value of 10.
+    :param dnaseq_a: The first dna sequence
+    :param dnaseq_b: The second dna sequence
     :param min_length: The minimum overlap
     :return: The length of the overlap, or 0 if no overlap
     """
     max_overlap = 0
-    for i in range(min_length, min(len(seq_a.seq), len(seq_b.seq))):
-        if seq_a[-i:] == seq_b[:i]:
-            max_overlap = i
+    for i in range(min_length, min(len(dnaseq_a.seq), len(dnaseq_b.seq) + 1)):  # +1 to include the last character
+        if dnaseq_a.seq.endswith(dnaseq_b.seq[:i]):
+            max_overlap = i  # update max_overlap if a longer overlap is found
     return max_overlap
 
 
-def overlaps(  ):
-    pass
+def overlaps(seq_list, overlap_func):
+    """
+    Find the overlaps between all sequences in seq_list.
+    :param seq_list: A list of DnaSeq objects
+    :param overlap_func: A function that takes two DnaSeq objects and returns the length of the overlap
+    :return: A dictionary of dictionaries. First key = accession of the first sequence, Second key = accession of the
+    second sequence, and the value is the length of the overlap.
+    """
+    overlap_dict = {}
+    for i, seq1 in enumerate(seq_list):
+        for j, seq2 in enumerate(seq_list):
+            if i == j:
+                continue
+            overlap_length = overlap_func(seq1, seq2)
+            if overlap_length > 0:
+                if seq1.accession not in overlap_dict:
+                    overlap_dict[seq1.accession] = {}
+                overlap_dict[seq1.accession][seq2.accession] = overlap_length
+    return overlap_dict
 
 
 #
@@ -150,9 +167,4 @@ def test_all():
     print('Yay, all good')
 
 # Uncomment this to test everything:
-# test_all()
-
-
-s0 = DnaSeq('s0', 'AAACCC')
-s1 = DnaSeq('s1', 'CCCGGG')
-print(check_exact_overlap(s0, s1, 2))
+test_all()
